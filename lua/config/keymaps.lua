@@ -70,3 +70,22 @@ end)
 keymap.set("n", "<leader>i", function()
 	require("craftzdog.lsp").toggleInlayHints()
 end)
+
+keymap.set("i", "<C-g>", function()
+	return vim.fn["codeium#Accept"]()
+end, { expr = true, silent = true })
+
+-- codeium next suggestion
+keymap.set("i", "<C-n>", function()
+	return vim.fn["codeium#CycleCompletions"](1)
+end, { expr = true, silent = true })
+
+-- codeium previous suggestion
+keymap.set("i", "<C-p>", function()
+	return vim.fn["codeium#CycleCompletions"](-1)
+end, { expr = true, silent = true })
+
+-- codeium select suggestion
+keymap.set("i", "<C-s>", function()
+	return vim.fn["codeium#Clear"]()
+end, { expr = true, silent = true })
