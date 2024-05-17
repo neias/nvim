@@ -84,8 +84,3 @@ end, { expr = true, silent = true })
 keymap.set("i", "<C-p>", function()
 	return vim.fn["codeium#CycleCompletions"](-1)
 end, { expr = true, silent = true })
-
--- codeium select suggestion
-keymap.set("i", "<C-s>", function()
-	return vim.fn["codeium#Clear"]()
-end, { expr = true, silent = true })
