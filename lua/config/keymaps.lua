@@ -89,3 +89,8 @@ end, { expr = true, silent = true })
 keymap.set("i", "<C-d>", function()
 	return vim.fn["codeium#Clear"]()
 end, { expr = true, silent = true })
+
+-- git
+keymap.set("n", "<leader>gd", ":DiffviewOpen<cr>")
+keymap.set("n", "<leader>gc", ":DiffviewClose<cr>")
+keymap.set("n", "<leader>gf", ":DiffviewFileHistory<cr>")
