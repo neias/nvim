@@ -19,6 +19,12 @@ keymap.set("n", "<Leader>D", '"_D')
 keymap.set("v", "<Leader>d", '"_d')
 keymap.set("v", "<Leader>D", '"_D')
 
+-- Add a blank line after current line
+keymap.set("n", "O", "O<Esc>")
+keymap.set("n", "o", "o<Esc>")
+keymap.set("n", "<Leader>o", "o", opts)
+keymap.set("n", "<Leader>O", "O", opts)
+
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -31,10 +37,6 @@ keymap.set("n", "<C-a>", "gg<S-v>G")
 
 -- Save with root permission (not working for now)
 --vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
-
--- Disable continuations
-keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
-keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
 
 -- Jumplist
 keymap.set("n", "<C-m>", "<C-i>", opts)
