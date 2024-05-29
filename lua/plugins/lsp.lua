@@ -12,6 +12,9 @@ return {
 				"tailwindcss-language-server",
 				"typescript-language-server",
 				"css-lsp",
+				"intelephense", -- php
+				"php-cs-fixer", -- php
+				"phpcs", -- php
 			})
 		end,
 	},
@@ -132,8 +135,37 @@ return {
 						},
 					},
 				},
+				intelephense = {
+					root_dir = function(...)
+						return require("lspconfig.util").root_pattern("composer.json", ".git")(...)
+					end,
+					settings = {
+						intelephense = {
+							files = {
+								maxSize = 5000000,
+							},
+						},
+					},
+				},
 			},
 			setup = {},
+		},
+	},
+	-- conform.nvim ve nvim-lint ayarları
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				php = { "php-cs-fixer" }, -- PHP dosyaları için biçimlendirme aracı
+			},
+		},
+	},
+	{
+		"mfussenegger/nvim-lint",
+		opts = {
+			linters_by_ft = {
+				php = { "php" },
+			},
 		},
 	},
 }
