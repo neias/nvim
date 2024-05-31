@@ -63,7 +63,7 @@ return {
 	-- animations
 	{
 		"echasnovski/mini.animate",
-		event = "VeryLazy",
+		event = "BufWinEnter",
 		opts = function(_, opts)
 			opts.scroll = {
 				enable = false,
@@ -92,7 +92,8 @@ return {
 	-- statusline
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
+		requires = { "nvim-tree/nvim-web-devicons", opt = true },
+		event = "BufWinEnter",
 		opts = {
 			options = {
 				-- globalstatus = false,
