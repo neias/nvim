@@ -96,3 +96,6 @@ end, { expr = true, silent = true })
 keymap.set("n", "<leader>gd", ":DiffviewOpen<cr>")
 keymap.set("n", "<leader>gc", ":DiffviewClose<cr>")
 keymap.set("n", "<leader>gf", ":DiffviewFileHistory<cr>")
+
+-- neo-tree
+keymap.set("n", "<leader>n", ":Neotre focus<CR>", opts)
