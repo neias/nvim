@@ -99,3 +99,7 @@ keymap.set("n", "<leader>gf", ":DiffviewFileHistory<cr>")
 
 -- neo-tree
 keymap.set("n", "<leader>n", ":Neotre focus<CR>", opts)
+
+-- theme
+local theme = require("config.theme")
+vim.keymap.set("n", "<leader>tt", theme.toggle_theme_mode, { desc = "Toggle Light/Dark Mode" })

@@ -13,6 +13,10 @@ return {
 					f = { ":DiffviewFileHistory<CR>", "File History" },
 					c = { ":DiffviewClose<CR>", "Close Diffview" },
 				},
+				t = {
+					name = "Theme",
+					t = { "<cmd>lua require('config.theme').toggle_theme_mode()<cr>", "Toggle Light/Dark Mode" },
+				},
 			},
 		})
 	end,
