@@ -66,7 +66,7 @@ require("lazy").setup({
 	dev = {
 		path = "~/.ghq/github.com",
 	},
-	checker = { enabled = true }, -- automatically check for plugin updates
+	checker = { enabled = false, notify = false, frequency = 86400 }, -- automatically check for plugin updates
 	performance = {
 		cache = {
 			enabled = true,
