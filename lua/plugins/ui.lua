@@ -60,15 +60,12 @@ return {
 		},
 	},
 
-	-- animations
 	{
-		"echasnovski/mini.animate",
-		event = "BufWinEnter",
-		opts = function(_, opts)
-			opts.scroll = {
-				enable = false,
-			}
-		end,
+		"snacks.nvim",
+		opts = {
+			scroll = { enabled = false },
+		},
+		keys = {},
 	},
 
 	-- buffer line
@@ -85,19 +82,6 @@ return {
 				-- separator_style = "slant",
 				show_buffer_close_icons = false,
 				show_close_icon = false,
-			},
-		},
-	},
-
-	-- statusline
-	{
-		"nvim-lualine/lualine.nvim",
-		requires = { "nvim-tree/nvim-web-devicons", opt = true },
-		event = "BufWinEnter",
-		opts = {
-			options = {
-				-- globalstatus = false,
-				theme = "solarized_dark",
 			},
 		},
 	},
@@ -134,35 +118,53 @@ return {
 		end,
 	},
 
-	-- shows blame information
+	-- statusline
 	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup({
-				current_line_blame = true,
-				current_line_blame_opts = {
-					delay = 1000,
-					virt_text_pos = "eol",
-				},
-			})
+		"nvim-lualine/lualine.nvim",
+		opts = function(_, opts)
+			local LazyVim = require("lazyvim.util")
+			opts.sections.lualine_c[4] = {
+				LazyVim.lualine.pretty_path({
+					length = 0,
+					relative = "cwd",
+					modified_hl = "MatchParen",
+					directory_hl = "",
+					filename_hl = "Bold",
+					modified_sign = "",
+					readonly_icon = " 󰌾 ",
+				}),
+			}
 		end,
 	},
 
 	{
-		"nvimdev/dashboard-nvim",
-		event = "VimEnter",
-		opts = function(_, opts)
-			local logo = [[
+		"folke/zen-mode.nvim",
+		cmd = "ZenMode",
+		opts = {
+			plugins = {
+				gitsigns = true,
+				tmux = true,
+				kitty = { enabled = false, font = "+2" },
+			},
+		},
+		keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
+	},
+
+	{
+		"folke/snacks.nvim",
+		opts = {
+			dashboard = {
+				preset = {
+					header = [[
       ███╗   ██╗███████╗██╗ █████╗ ███████╗
       ████╗  ██║██╔════╝██║██╔══██╗██╔════╝
       ██╔██╗ ██║█████╗  ██║███████║███████╗
       ██║╚██╗██║██╔══╝  ██║██╔══██║╚════██║
       ██║ ╚████║███████╗██║██║  ██║███████║
       ╚═╝  ╚═══╝╚══════╝╚═╝╚═╝  ╚═╝╚══════╝
-      ]]
-
-			logo = string.rep("\n", 8) .. logo .. "\n\n"
-			opts.config.header = vim.split(logo, "\n")
-		end,
+          ]],
+				},
+			},
+		},
 	},
 }
