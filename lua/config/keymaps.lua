@@ -77,6 +77,9 @@ end)
 keymap.set("n", "<leader>gd", ":DiffviewOpen<cr>")
 keymap.set("n", "<leader>gc", ":DiffviewClose<cr>")
 keymap.set("n", "<leader>gf", ":DiffviewFileHistory<cr>")
+keymap.set("n", "<leader>gb", function()
+	require("telescope.builtin").git_bcommits()
+end, { desc = "Git commits (current buffer)" })
 
 -- neo-tree
 keymap.set("n", "<leader>n", ":Neotre focus<CR>", opts)
@@ -84,3 +87,8 @@ keymap.set("n", "<leader>n", ":Neotre focus<CR>", opts)
 -- theme
 local theme = require("config.theme")
 vim.keymap.set("n", "<leader>tt", theme.toggle_theme_mode, { desc = "Toggle Light/Dark Mode" })
+
+--oldfile
+keymap.set("n", "<leader>r", function()
+	require("fzf-lua").oldfiles()
+end, { desc = "FzfLua: Recent Files" })

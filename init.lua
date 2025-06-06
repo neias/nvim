@@ -1,4 +1,3 @@
--- 20 ocak 2025
 if vim.loader then
 	vim.loader.enable()
 end
