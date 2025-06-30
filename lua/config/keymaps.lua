@@ -65,24 +65,25 @@ keymap.set("n", "<C-j>", function()
 	vim.diagnostic.goto_next()
 end, opts)
 
-keymap.set("n", "<leader>r", function()
-	require("craftzdog.hsl").replaceHexWithHSL()
-end)
+-- keymap.set("n", "<leader>h", function()
+-- 	require("craftzdog.hsl").replaceHexWithHSL()
+-- end)
 
 keymap.set("n", "<leader>i", function()
 	require("craftzdog.lsp").toggleInlayHints()
 end)
 
--- git
-keymap.set("n", "<leader>gd", ":DiffviewOpen<cr>")
-keymap.set("n", "<leader>gc", ":DiffviewClose<cr>")
-keymap.set("n", "<leader>gf", ":DiffviewFileHistory<cr>")
-keymap.set("n", "<leader>gb", function()
+-- git diffview (override LazyVim defaults)
+keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Open Diffview" })
+keymap.set("n", "<leader>gc", "<cmd>DiffviewClose<cr>", { desc = "Close Diffview" })
+keymap.set("n", "<leader>gF", "<cmd>DiffviewFileHistory<cr>", { desc = "Diffview File History" })
+keymap.set("n", "<leader>gq", "<cmd>DiffviewClose<cr>", { desc = "Quit Diffview" })
+keymap.set("n", "<leader>gC", function()
 	require("telescope.builtin").git_bcommits()
 end, { desc = "Git commits (current buffer)" })
 
 -- neo-tree
-keymap.set("n", "<leader>n", ":Neotre focus<CR>", opts)
+keymap.set("n", "<leader>n", ":Neotree focus<CR>", opts)
 
 -- theme
 local theme = require("config.theme")

@@ -9,9 +9,11 @@ return {
 			["<leader>"] = {
 				g = {
 					name = "Git",
-					d = { ":DiffviewOpen<CR>", "Open Diffview" },
-					f = { ":DiffviewFileHistory<CR>", "File History" },
-					c = { ":DiffviewClose<CR>", "Close Diffview" },
+					d = { "<cmd>DiffviewOpen<CR>", "Open Diffview" },
+					F = { "<cmd>DiffviewFileHistory<CR>", "Diffview File History" },
+					c = { "<cmd>DiffviewClose<CR>", "Close Diffview" },
+					q = { "<cmd>DiffviewClose<CR>", "Quit Diffview" },
+					C = { function() require("telescope.builtin").git_bcommits() end, "Git Commits (Buffer)" },
 				},
 				t = {
 					name = "Theme",
