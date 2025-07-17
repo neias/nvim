@@ -1,5 +1,4 @@
-local discipline = require("craftzdog.discipline")
-
+-- local discipline = require("craftzdog.discipline")
 -- discipline.cowboy()
 
 local keymap = vim.keymap
@@ -93,3 +92,27 @@ vim.keymap.set("n", "<leader>tt", theme.toggle_theme_mode, { desc = "Toggle Ligh
 keymap.set("n", "<leader>r", function()
 	require("fzf-lua").oldfiles()
 end, { desc = "FzfLua: Recent Files" })
+
+-- Go to definition in new tab
+keymap.set("n", "gtd", function()
+	local params = vim.lsp.util.make_position_params()
+	vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result, ctx, config)
+		if err then
+			vim.notify("Error: " .. err.message)
+			return
+		end
+		if not result or vim.tbl_isempty(result) then
+			vim.notify("No definition found")
+			return
+		end
+		
+		-- Get the first result
+		local definition = result[1] or result
+		local uri = definition.uri or definition.targetUri
+		local range = definition.range or definition.targetRange
+		
+		-- Open in new tab
+		vim.cmd("tabnew")
+		vim.lsp.util.jump_to_location(definition, "utf-8")
+	end)
+end, { desc = "Go to definition in new tab" })

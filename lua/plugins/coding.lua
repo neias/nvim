@@ -26,7 +26,7 @@ return {
 		"ThePrimeagen/refactoring.nvim",
 		keys = {
 			{
-				"<leader>r",
+				"<leader>rf",
 				function()
 					require("refactoring").select_refactor()
 				end,
@@ -60,7 +60,7 @@ return {
 		"monaqa/dial.nvim",
     -- stylua: ignore
     keys = {
-      { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
+      { "<leader>+", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
       { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
     },
 		config = function()
