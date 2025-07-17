@@ -52,6 +52,13 @@ return {
 	{
 		"sindrets/diffview.nvim",
 		dependencies = "nvim-lua/plenary.nvim",
+		opts = {
+			vcs = {
+				hg = {
+					cmd = nil,
+				},
+			},
+		},
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -178,6 +185,11 @@ return {
 					layout_config = {
 						preview_cutoff = 9999,
 					},
+				},
+				lsp_references = {
+					layout_strategy = "horizontal",
+					layout_config = { prompt_position = "top" },
+					sorting_strategy = "ascending",
 				},
 			}
 			opts.extensions = {

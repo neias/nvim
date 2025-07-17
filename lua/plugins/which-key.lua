@@ -5,21 +5,15 @@ return {
 	},
 	config = function()
 		local wk = require("which-key")
-		wk.register({
-			["<leader>"] = {
-				g = {
-					name = "Git",
-					d = { "<cmd>DiffviewOpen<CR>", "Open Diffview" },
-					F = { "<cmd>DiffviewFileHistory<CR>", "Diffview File History" },
-					c = { "<cmd>DiffviewClose<CR>", "Close Diffview" },
-					q = { "<cmd>DiffviewClose<CR>", "Quit Diffview" },
-					C = { function() require("telescope.builtin").git_bcommits() end, "Git Commits (Buffer)" },
-				},
-				t = {
-					name = "Theme",
-					t = { "<cmd>lua require('config.theme').toggle_theme_mode()<cr>", "Toggle Light/Dark Mode" },
-				},
-			},
+		wk.add({
+			{ "<leader>g", group = "Git" },
+			{ "<leader>gd", "<cmd>DiffviewOpen<CR>", desc = "Open Diffview" },
+			{ "<leader>gF", "<cmd>DiffviewFileHistory<CR>", desc = "Diffview File History" },
+			{ "<leader>gc", "<cmd>DiffviewClose<CR>", desc = "Close Diffview" },
+			{ "<leader>gq", "<cmd>DiffviewClose<CR>", desc = "Quit Diffview" },
+			{ "<leader>gC", function() require("telescope.builtin").git_bcommits() end, desc = "Git Commits (Buffer)" },
+			{ "<leader>t", group = "Theme" },
+			{ "<leader>tt", "<cmd>lua require('config.theme').toggle_theme_mode()<cr>", desc = "Toggle Light/Dark Mode" },
 		})
 	end,
 }

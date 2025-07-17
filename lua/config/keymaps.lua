@@ -95,7 +95,7 @@ end, { desc = "FzfLua: Recent Files" })
 
 -- Go to definition in new tab
 keymap.set("n", "gtd", function()
-	local params = vim.lsp.util.make_position_params()
+	local params = vim.lsp.util.make_position_params(0, "utf-8")
 	vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result, ctx, config)
 		if err then
 			vim.notify("Error: " .. err.message)
@@ -105,14 +105,35 @@ keymap.set("n", "gtd", function()
 			vim.notify("No definition found")
 			return
 		end
-		
+
 		-- Get the first result
 		local definition = result[1] or result
-		local uri = definition.uri or definition.targetUri
-		local range = definition.range or definition.targetRange
-		
+
 		-- Open in new tab
 		vim.cmd("tabnew")
-		vim.lsp.util.jump_to_location(definition, "utf-8")
+		vim.lsp.util.show_document(definition, "utf-8", { focus = true })
 	end)
 end, { desc = "Go to definition in new tab" })
+
+-- Go to references in new tab
+keymap.set("n", "gtr", function()
+	-- Store original buffer and window
+	local orig_buf = vim.api.nvim_get_current_buf()
+	local orig_win = vim.api.nvim_get_current_win()
+
+	-- Check if LSP is available
+	local clients = vim.lsp.get_clients({ bufnr = orig_buf })
+	if #clients == 0 then
+		vim.notify("No LSP server attached")
+		return
+	end
+
+	-- Open new tab first
+	vim.cmd("tabnew")
+
+	-- Set the original buffer in the new tab
+	vim.api.nvim_set_current_buf(orig_buf)
+
+	-- Now call lsp_references in the new tab with proper context
+	require("telescope.builtin").lsp_references()
+end, { desc = "Go to references in new tab" })
