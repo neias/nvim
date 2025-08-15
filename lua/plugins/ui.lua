@@ -139,14 +139,23 @@ return {
 
 	-- shows blame information
 	{
-		"lewis6991/gitsigns.nvim",
+		"f-person/git-blame.nvim",
+		event = "BufReadPre",
 		config = function()
-			require("gitsigns").setup({
-				current_line_blame = true,
-				current_line_blame_opts = {
-					delay = 1000,
-					virt_text_pos = "eol",
-				},
+			-- Windows için shell ayarla
+			if vim.fn.has("win32") == 1 then
+				vim.o.shell = "cmd"
+				vim.o.shellcmdflag = "/c"
+			end
+			
+			require("gitblame").setup({
+				enabled = true,
+				message_template = " <summary> • <date> • <author>",
+				date_format = "%m/%d/%y",
+				virtual_text_column = 80,
+				-- Windows için git komut ayarları
+				git_command = "git",
+				use_internal_diff = false,
 			})
 		end,
 	},
