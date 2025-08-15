@@ -137,3 +137,25 @@ keymap.set("n", "gtr", function()
 	-- Now call lsp_references in the new tab with proper context
 	require("telescope.builtin").lsp_references()
 end, { desc = "Go to references in new tab" })
+
+-- Go to definition in vertical split
+keymap.set("n", "gts", function()
+	local params = vim.lsp.util.make_position_params(0, "utf-8")
+	vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result, ctx, config)
+		if err then
+			vim.notify("Error: " .. err.message)
+			return
+		end
+		if not result or vim.tbl_isempty(result) then
+			vim.notify("No definition found")
+			return
+		end
+
+		-- Get the first result
+		local definition = result[1] or result
+
+		-- Open in vertical split
+		vim.cmd("vsplit")
+		vim.lsp.util.show_document(definition, "utf-8", { focus = true })
+	end)
+end, { desc = "Go to definition in vertical split" })
