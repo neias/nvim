@@ -16,7 +16,20 @@ vim.opt.cmdheight = 1
 vim.opt.laststatus = 3
 vim.opt.expandtab = true
 vim.opt.scrolloff = 10
-vim.opt.shell = "/bin/zsh"
+-- Shell ayarı işletim sistemine göre
+if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
+	-- PowerShell 7 varsa onu kullan, yoksa Windows PowerShell
+	if vim.fn.executable("pwsh") == 1 then
+		vim.opt.shell = "pwsh"
+	else
+		vim.opt.shell = "powershell"
+	end
+	vim.opt.shellcmdflag = "-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command"
+	vim.opt.shellquote = ""
+	vim.opt.shellxquote = ""
+else
+	vim.opt.shell = "/bin/zsh"
+end
 vim.opt.backupskip = { "/tmp/*", "/private/tmp/*" }
 vim.opt.inccommand = "split"
 vim.opt.ignorecase = true -- Case insensitive searching UNLESS /C or capital in search
