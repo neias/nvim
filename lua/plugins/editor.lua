@@ -53,6 +53,18 @@ return {
 		"sindrets/diffview.nvim",
 		dependencies = "nvim-lua/plenary.nvim",
 		opts = {
+			view = {
+				default = {
+					layout = "diff2_horizontal", -- Yan yana görünüm
+					winbar_info = false,
+				},
+			},
+			file_panel = {
+				win_config = {
+					position = "left",
+					width = 35,
+				},
+			},
 			vcs = {
 				hg = {
 					cmd = nil,
