@@ -1,4 +1,5 @@
 return {
+
 	{
 		enabled = false,
 		"folke/flash.nvim",
@@ -238,6 +239,15 @@ return {
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("file_browser")
 		end,
+	},
+
+	{
+		"claudeai/claudecode.nvim",
+		opts = {
+			diff_opts = {
+				open_in_new_tab = true,
+			},
+		},
 	},
 
 	{

@@ -1,4 +1,35 @@
 return {
+	-- Command line ortada floating window
+	{
+		"VonHeikemen/fine-cmdline.nvim",
+		dependencies = { "MunifTanjim/nui.nvim" },
+		config = function()
+			require("fine-cmdline").setup({
+				cmdline = {
+					prompt = ": ",
+				},
+				popup = {
+					position = {
+						row = "10%",
+						col = "50%",
+					},
+					size = {
+						width = "40%",
+					},
+					border = {
+						style = "rounded",
+					},
+					win_options = {
+						winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+					},
+				},
+			})
+		end,
+		keys = {
+			{ ":", "<cmd>FineCmdline<CR>", desc = "Command line" },
+		},
+	},
+
 	-- messages, cmdline and the popupmenu
 	{
 		"folke/noice.nvim",
