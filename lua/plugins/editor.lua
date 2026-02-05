@@ -98,7 +98,7 @@ return {
 					local themes = require("telescope.themes")
 					require("telescope").extensions.file_browser.file_browser(themes.get_ivy({
 						cwd = vim.loop.cwd(),
-						respect_gitignore = true,
+						respect_gitignore = false,
 						hidden = false,
 						grouped = true,
 					}))
