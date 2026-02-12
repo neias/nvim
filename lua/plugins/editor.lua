@@ -107,13 +107,26 @@ return {
 			{
 				";f",
 				function()
+					local themes = require("telescope.themes")
+					require("telescope").extensions.file_browser.file_browser(themes.get_ivy({
+						cwd = vim.loop.cwd(),
+						respect_gitignore = false,
+						hidden = false,
+						grouped = true,
+					}))
+				end,
+				desc = "Browse files (ivy style, Emacs-like)",
+			},
+			{
+				";F",
+				function()
 					local builtin = require("telescope.builtin")
 					builtin.find_files({
 						no_ignore = false,
 						hidden = true,
 					})
 				end,
-				desc = "Lists files in your current working directory, respects .gitignore",
+				desc = "Find files (horizontal, floating)",
 			},
 			{
 				";r",
@@ -223,7 +236,28 @@ return {
 					-- disables netrw and use telescope-file-browser in its place
 					hijack_netrw = true,
 					mappings = {
-						-- your custom insert mode mappings
+						["i"] = {
+							["<Tab>"] = function(prompt_bufnr)
+								local action_state = require("telescope.actions.state")
+								local entry = action_state.get_selected_entry()
+								if entry then
+									local picker = action_state.get_current_picker(prompt_bufnr)
+									local name = vim.fn.fnamemodify(entry.path or entry[1], ":t")
+									picker:set_prompt(name)
+								end
+							end,
+							["<CR>"] = function(prompt_bufnr)
+								local action_state = require("telescope.actions.state")
+								local entry = action_state.get_selected_entry()
+								if not entry then return end
+								if entry.Path and entry.Path:is_dir() then
+									fb_actions.open_dir(prompt_bufnr)
+								else
+									actions.close(prompt_bufnr)
+									vim.cmd("edit " .. vim.fn.fnameescape(entry.path))
+								end
+							end,
+						},
 						["n"] = {
 							-- your custom normal mode mappings
 							["N"] = fb_actions.create,
@@ -254,7 +288,7 @@ return {
 	},
 
 	{
-		"claudeai/claudecode.nvim",
+		"coder/claudecode.nvim",
 		opts = {
 			diff_opts = {
 				open_in_new_tab = true,
